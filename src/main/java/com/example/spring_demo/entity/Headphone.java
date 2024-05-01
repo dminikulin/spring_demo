@@ -1,11 +1,9 @@
 package com.example.spring_demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name="headphones")
 public class Headphone {
     @Id
     private Long id;
@@ -19,6 +17,18 @@ public class Headphone {
     @ManyToOne
     @JoinColumn(name = "connection")
     private Connection connection;
+
+    public Headphone(Long id, Brand brand, String name, Type type, Connection connection) {
+        this.id = id;
+        this.brand = brand;
+        this.name = name;
+        this.type = type;
+        this.connection = connection;
+    }
+
+    public Headphone() {
+
+    }
 
     public Long getId() {
         return id;

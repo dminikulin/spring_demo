@@ -2,12 +2,17 @@ package com.example.spring_demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="connections")
 public class Connection {
     @Id
     private Long id;
     private String connection;
+
+    public Connection() {
+    }
 
     public Long getId() {
         return id;
