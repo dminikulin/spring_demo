@@ -6,28 +6,21 @@ import jakarta.persistence.*;
 @Table(name="headphones")
 public class Headphone {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "brand")
-    private Brand brand;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "type")
-    private Type type;
-    @ManyToOne
-    @JoinColumn(name = "connection")
-    private Connection connection;
-
-    public Headphone(Long id, Brand brand, String name, Type type, Connection connection) {
-        this.id = id;
-        this.brand = brand;
-        this.name = name;
-        this.type = type;
-        this.connection = connection;
-    }
+    private String brand;
+    private String type;
+    private String connection;
 
     public Headphone() {
+    }
 
+    public Headphone(String name, String brand, String type, String connection) {
+        this.name = name;
+        this.brand = brand;
+        this.type = type;
+        this.connection = connection;
     }
 
     public Long getId() {
@@ -38,14 +31,6 @@ public class Headphone {
         this.id = id;
     }
 
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
     public String getName() {
         return name;
     }
@@ -54,19 +39,27 @@ public class Headphone {
         this.name = name;
     }
 
-    public Type getType() {
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public Connection getConnection() {
+    public String getConnection() {
         return connection;
     }
 
-    public void setConnection(Connection connection) {
+    public void setConnection(String connection) {
         this.connection = connection;
     }
 }
