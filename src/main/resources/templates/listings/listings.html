@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">A little audio shop</title>
+</head>
+<body>
+    <div layout:fragment="content" class="w-50">
+        <h1 class="text-center my-5">Listings</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Headphone</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="listing : ${listings}">
+                <td th:text="${listing.headphone.brand} + ' ' + ${listing.headphone.name}"></td>
+                <td th:text="${listing.price}"></td>
+                <td><button type="button" class="btn btn-info">Edit</button></td>
+                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                <td><button type="button" class="btn btn-warning">Sell</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

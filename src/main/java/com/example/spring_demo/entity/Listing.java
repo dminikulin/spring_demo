@@ -9,8 +9,9 @@ public class Listing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "headphone_id")
-    private Long headphone_id;
+    @OneToOne
+    @JoinColumn(name = "headphone_id")
+    private Headphone headphone;
 
     private float price;
 
@@ -25,12 +26,12 @@ public class Listing {
         this.id = id;
     }
 
-    public Long getHeadphone_id() {
-        return headphone_id;
+    public Headphone getHeadphone() {
+        return headphone;
     }
 
-    public void setHeadphone_id(Long headphoneId) {
-        this.headphone_id = headphoneId;
+    public void setHeadphone(Headphone headphone) {
+        this.headphone = headphone;
     }
 
     public float getPrice() {

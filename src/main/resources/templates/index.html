@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">A little audio shop</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="card my-5" style="width: 24rem;">
+            <div class="card-body text-center">
+                <h3 class="card-title mb-2">Welcome to my audio shop!</h3>
+                <p class="card-text">A small collection of headphones for sale.</p>
+                <a th:href="@{/headphones}" class="card-link">Headphones</a>
+                <a th:href="@{/listings}" class="card-link">Listings</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
