@@ -11,4 +11,8 @@ import java.util.List;
 
 @Repository
 public interface HeadphoneRepository extends JpaRepository<Headphone, Long>{
+    @Query("SELECT DISTINCT type FROM Headphone")
+    List<String> findDistinctTypes();
+    @Query("SELECT DISTINCT connection FROM Headphone")
+    List<String> findDistinctConnections();
 }

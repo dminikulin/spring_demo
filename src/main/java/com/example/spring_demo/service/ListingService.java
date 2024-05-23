@@ -1,7 +1,10 @@
 package com.example.spring_demo.service;
 
+import com.example.spring_demo.entity.Headphone;
 import com.example.spring_demo.entity.Listing;
+import com.example.spring_demo.repository.HeadphoneRepository;
 import com.example.spring_demo.repository.ListingRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,9 @@ import java.util.Optional;
 public class ListingService {
     @Autowired
     private ListingRepository listingRepository;
+
+    @Autowired
+    private HeadphoneRepository headphoneRepository;
 
     public List<Listing> findAll(){
         return listingRepository.findAll();
@@ -36,5 +42,13 @@ public class ListingService {
 
     public void removeListing(Long id){
        listingRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void sellListing(Long id){
+        Listing listing = findListing(id);
+        Headphone headphone = listing.getHeadphone();
+        listingRepository.delete(listing);
+        headphoneRepository.delete(headphone);
     }
 }

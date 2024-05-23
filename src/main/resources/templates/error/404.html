@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>404 Not Found</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="card my-5" style="width: 24rem;">
+            <div class="card-body text-center">
+                <h3 class="card-title mb-2">404 Not found</h3>
+                <p class="card-text">Seems like the page you're looking for doesn't exist :/</p>
+                <a th:href="@{/}" class="card-link">Main page</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

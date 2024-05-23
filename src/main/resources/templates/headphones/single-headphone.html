@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">A little audio shop</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h3 class="text-center my-5" th:text="${headphone.brand} + ' ' + ${headphone.name}"></h3>
+        <div class="card" style="width: 24rem;">
+            <div class="card-header">
+                <a class="link link-opacity-25-hover" th:href="@{/headphones}">Back</a>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h5 class="card-subtitle">Name</h5>
+                    <p class="card-text" th:text="${headphone.name}"></p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-subtitle">Type</h5>
+                    <p class="card-text" th:text="${headphone.type}"></p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-subtitle">Connection</h5>
+                    <p class="card-text" th:text="${headphone.connection}"></p>
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-info" th:href="@{/headphones/edit/{id}(id=${headphone.id})}">Edit</a>
+                    <button class="btn btn-danger" th:onclick="'confirmDelete(' + ${headphone.id} + ')'">Delete</button>
+                    <form th:id="'deleteForm_' + ${headphone.id}" th:action="@{/headphones/delete/{id}(id=${headphone.id})}" method="post" style="display:none;">
+                        <input type="hidden" name="_method" value="delete"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

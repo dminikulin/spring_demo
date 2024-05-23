@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">A little audio shop</title>
+    <script>
+        function removeImage(headphoneId) {
+            window.location.href = '/headphones/removeImage/' + headphoneId;
+        }
+    </script>
+</head>
+<body>
+    <div layout:fragment="content" class="w-50">
+        <h3 class="text-center my-4" th:text="${headphone.id != null ? 'Update pair' : 'Add new pair'}"></h3>
+        <a class="link my-4" th:href="@{/headphones}">Back</a>
+        <form th:if="${headphone.id != null}" th:action="@{/headphones/update/{id}(id=${headphone.id})}" th:object="${headphone}" method="post" enctype="multipart/form-data">
+            <div class="form-group mb-3">
+                <label>Brand:</label>
+                <input type="text" class="form-control my-1" th:field="*{brand}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Name:</label>
+                <input type="text" class="form-control my-1" th:field="*{name}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Wearing type:</label>
+                <select class="form-control my-1" th:field="*{type}" required>
+                    <option th:each="typeOption : ${existingTypes}" th:value="${typeOption}" th:text="${typeOption}"></option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Connection type:</label>
+                <select class="form-control my-1" th:field="*{connection}" required>
+                    <option th:each="connectionOption : ${existingConnections}" th:value="${connectionOption}" th:text="${connectionOption}"></option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Image (optional):</label>
+                <input type="file" class="form-control my-1" name="image" accept="image/*">
+                <button th:if="${headphone.imageUrl != null}" type="button" class="btn btn-sm btn-danger" th:onclick="'removeImage(' + ${headphone.id} + ')'">Remove</button>
+            </div>
+            <button type="submit" class="btn btn-success">Update Pair</button>
+        </form>
+
+
+        <form th:unless="${headphone.id != null}" th:action="@{/headphones/add}" th:object="${headphone}" method="post" enctype="multipart/form-data">
+            <div class="form-group mb-3">
+                <label>Brand:</label>
+                <input type="text" class="form-control my-1" th:field="*{brand}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Name:</label>
+                <input type="text" class="form-control my-1" th:field="*{name}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Wearing type:</label>
+                <select class="form-control my-1" th:field="*{type}" required>
+                    <option th:each="typeOption : ${existingTypes}" th:value="${typeOption}">
+                        [[${typeOption}]]
+                    </option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Connection type:</label>
+                <select class="form-control my-1" th:field="*{connection}" required>
+                    <option th:each="connectionOption : ${existingConnections}" th:value="${connectionOption}">
+                        [[${connectionOption}]]
+                    </option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Image (optional):</label>
+                <input type="file" class="form-control my-1" name="image">
+            </div>
+            <button type="submit" class="btn btn-success">Add Pair</button>
+        </form>
+    </div>
+</body>
+</html>

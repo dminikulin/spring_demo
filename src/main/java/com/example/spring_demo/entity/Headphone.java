@@ -12,6 +12,7 @@ public class Headphone {
     private String brand;
     private String type;
     private String connection;
+    private String imageUrl;
 
     public Headphone() {
     }
@@ -61,5 +62,13 @@ public class Headphone {
 
     public void setConnection(String connection) {
         this.connection = connection;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

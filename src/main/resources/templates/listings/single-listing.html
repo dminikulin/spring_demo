@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">A little audio shop</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h3 class="text-center my-5" th:text="'Listing details for ' +  ${listing.headphone.brand} + ' ' + ${listing.headphone.name}"></h3>
+        <div class="card" style="width: 24rem;">
+            <div class="card-header">
+                <a class="link link-opacity-25-hover" th:href="@{/listings}">Back</a>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h5 class="card-subtitle">Price</h5>
+                    <p class="card-text" th:text="${listing.price}"></p>
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-info" th:href="@{/listings/edit/{id}(id=${listing.id})}">Edit</a>
+                    <button class="btn btn-danger" th:onclick="'confirmDelete(' + ${listing.id} + ')'">Delete</button>
+                    <form th:id="'deleteForm_' + ${listing.id}" th:action="@{/listings/delete/{id}(id=${listing.id})}" method="post" style="display:none;">
+                        <input type="hidden" name="_method" value="delete"/>
+                    </form>
+                    <form th:action="@{/listings/sell/{id}(id=${listing.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-warning">Sell</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

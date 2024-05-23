@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">A little audio shop</title>
+</head>
+<body>
+    <div layout:fragment="content" class="w-50">
+        <h3 class="text-center my-4" th:text="${listing.id != null} ? 'Update listing for ' + ${listing.headphone.brand} + ' ' + ${listing.headphone.name} : 'Create new listing'"></h3>
+        <a class=" link my-4" th:href="@{/listings}">Back</a>
+
+        <form th:if="${listing.id != null}" th:action="@{/listings/update/{id}(id=${listing.id})}" th:object="${listing}" method="post">
+            <div class="form-group mb-3">
+                <label>Price:</label>
+                <input type="number" class="form-control my-1" th:field="*{price}" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-success">Update Listing</button>
+        </form>
+
+        <form th:unless="${listing.id != null}" th:action="@{/listings/add}" th:object="${listing}" method="post">
+            <div class="form-group mb-3">
+                <label>Headphone pair:</label>
+                <select class="form-control my-1" th:field="*{headphone}" required>
+                    <option th:each="hp : ${headphones}" th:value="${hp.id}" th:text="${hp.brand + ' ' + hp.name}"></option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Price:</label>
+                <input type="number" class="form-control my-1" th:field="*{price}" step="0.1" required>
+            </div>
+            <button type="submit" class="btn btn-success">Add Listing</button>
+        </form>
+    </div>
+</body>
+</html>
