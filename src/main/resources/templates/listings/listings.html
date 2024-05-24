@@ -21,6 +21,7 @@
         <table class="table table-striped align-middle">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Headphone</th>
                     <th>Price</th>
                     <th>Operations</th>
@@ -28,6 +29,9 @@
             </thead>
             <tbody>
             <tr th:each="listing : ${listings}">
+                <td>
+                    <img th:if="${listing.headphone.imageUrl != null}" th:src="@{${listing.headphone.imageUrl}}" alt="No Image" width="100">
+                </td>
                 <td>
                     <a class="link link-opacity-25-hover" th:href="@{listings/{id}(id=${listing.id})}" th:text="${listing.headphone.brand} + ' ' + ${listing.headphone.name}"></a>
                 </td>

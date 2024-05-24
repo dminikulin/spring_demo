@@ -53,11 +53,14 @@ public class HeadphoneController {
         }
     }
 
-    private void removeImage(Long id) {
-        Headphone headphone = headphoneService.findPair(id);
-        if(headphone != null){
-            headphone.setImageUrl(null);
-            headphoneService.updatePair(id, headphone);
+    private void deleteImageFile(String imageUrl) {
+        if(imageUrl != null){
+            try {
+                Path imagePath = Paths.get("src/main/resources/static" + imageUrl);
+                Files.deleteIfExists(imagePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -92,17 +95,30 @@ public class HeadphoneController {
 
     @PostMapping("/update/{id}")
     public String updateHeadphone(@PathVariable Long id, @ModelAttribute Headphone headphone, @RequestParam("image") MultipartFile file) {
-        if(!file.isEmpty()){
-            String uploadDir = saveImage(file);
-            headphone.setImageUrl(uploadDir);
+        Headphone existingHeadphone = headphoneService.findPair(id);
+
+        if (!file.isEmpty()) {
+            if (existingHeadphone.getImageUrl() != null) {
+                deleteImageFile(existingHeadphone.getImageUrl());
+            }
+            String newImageUrl = saveImage(file);
+            headphone.setImageUrl(newImageUrl);
+        } else {
+            headphone.setImageUrl(existingHeadphone.getImageUrl());
         }
+
         headphoneService.updatePair(id, headphone);
         return "redirect:/headphones";
     }
 
     @GetMapping("/removeImage/{id}")
     public String deleteImage(@PathVariable Long id) {
-        removeImage(id);
+        Headphone headphone = headphoneService.findPair(id);
+        if (headphone != null && headphone.getImageUrl() != null) {
+            deleteImageFile(headphone.getImageUrl());
+            headphone.setImageUrl(null);
+            headphoneService.updatePair(id, headphone);
+        }
         return "redirect:/headphones/edit/" + id;
     }
 

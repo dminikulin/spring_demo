@@ -10,9 +10,10 @@
         <a class=" link my-4" th:href="@{/listings}">Back</a>
 
         <form th:if="${listing.id != null}" th:action="@{/listings/update/{id}(id=${listing.id})}" th:object="${listing}" method="post">
+            <input type="hidden" th:field="*{headphone.id}">
             <div class="form-group mb-3">
                 <label>Price:</label>
-                <input type="number" class="form-control my-1" th:field="*{price}" step="0.01" required>
+                <input type="number" class="form-control my-1" th:field="*{price}" step="0.1" required>
             </div>
             <button type="submit" class="btn btn-success">Update Listing</button>
         </form>
